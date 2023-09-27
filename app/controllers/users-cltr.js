@@ -1,6 +1,9 @@
 const User = require('../models/user-model');
 const {validationResult} = require('express-validator');
 
+const _ = require('lodash');
+const bcrypt = require('bcryptjs');
+
 const userCltr = {};
 
 userCltr.register = async (request, response) => {
@@ -9,7 +12,14 @@ userCltr.register = async (request, response) => {
     if (!errors.isEmpty()) {
       response.send({errors: errors.array()});
     } else {
-      const body = request.body;
+      const body = _.pick(request.body, [
+        'username',
+        'email',
+        'password',
+      ]);
+      const salt = await bcrypt.genSalt();
+      const hash = await bcrypt.hash(body.password, salt);
+      body.password = hash;
       const user = await User.create(body);
       response.send(user);
     }
@@ -19,7 +29,11 @@ userCltr.register = async (request, response) => {
 };
 
 userCltr.login = async (request, response) => {
-  const body = request.body;
+  const body = _.pick(request.body, [
+    'username',
+    'email',
+    'password',
+  ]);
   try {
     const user = await User.create(body);
     response.send(user);

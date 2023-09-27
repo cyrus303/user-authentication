@@ -13,7 +13,7 @@ const userValidationSchema = {
   },
   password: {
     isLength: {
-      options: {min: 8, max: 12},
+      options: {min: 8, max: 128},
       errorMessage:
         'password should be between 8 - 128 characters long',
     },
