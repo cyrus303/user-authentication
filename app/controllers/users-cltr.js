@@ -29,17 +29,15 @@ userCltr.register = async (request, response) => {
 };
 
 userCltr.login = async (request, response) => {
-  const body = _.pick(request.body, [
-    'username',
-    'email',
-    'password',
-  ]);
   try {
-    const user = await User.create(body);
-    response.send(user);
-  } catch (error) {
-    response.sendStatus(400);
-  }
+    const errors = validationResult(request);
+    if (!errors.isEmpty()) {
+      response.status(400).send({errors: errors.array()});
+    } else {
+      const body = _.pick(request.body, ['email', 'password']);
+      response.send(body);
+    }
+  } catch (error) {}
 };
 
 module.exports = userCltr;

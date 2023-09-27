@@ -4,16 +4,27 @@ const userCltr = require('../app/controllers/users-cltr');
 const greetCltr = require('../app/controllers/greet-cltr');
 
 const {checkSchema} = require('express-validator');
-const userValidationSchema = require('../app/helpers/userValidationSchema');
 
-router.get(
-  '/api/users/register',
-  checkSchema(userValidationSchema),
+const {
+  userRegistrationSchema,
+  userLoginSchema,
+} = require('../app/helpers/userValidationSchema');
+
+router.post(
+  '/users/register',
+  checkSchema(userRegistrationSchema),
   userCltr.register
 );
-router.get('/api/users/login', userCltr.login);
 
-router.get('/api/greet/welcome', greetCltr.welcome);
-router.get('/api/greet/goodbye', greetCltr.goodbye);
+// router.get('/users/login');
+
+router.post(
+  '/users/login',
+  checkSchema(userLoginSchema),
+  userCltr.login
+);
+
+router.get('/greet/welcome', greetCltr.welcome);
+router.get('/greet/goodbye', greetCltr.goodbye);
 
 module.exports = router;

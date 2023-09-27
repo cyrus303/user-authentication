@@ -11,7 +11,7 @@ configureDB();
 app.use(express.json());
 app.use(cors());
 
-app.use('/', routes);
+app.use('/api', routes);
 
 app.listen(port, () => {
   console.log('server running on port', port);
