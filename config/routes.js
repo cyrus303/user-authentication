@@ -16,8 +16,6 @@ router.post(
   userCltr.register
 );
 
-// router.get('/users/login');
-
 router.post(
   '/users/login',
   checkSchema(userLoginSchema),

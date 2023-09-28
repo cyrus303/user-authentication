@@ -10,8 +10,9 @@ const encryption = async (password) => {
 };
 
 const password = 'Fresh-Curler-Rumble5';
-// hash password: $2a$10$8PZIlc6sTfz4KCV.YaHLauZifx.3gIrqFrOWEoHWdyNuiZxK6pxQm
-encryption(password);
+const hash =
+  '$2a$10$8PZIlc6sTfz4KCV.YaHLauZifx.3gIrqFrOWEoHWdyNuiZxK6pxQm';
+// encryption(password);
 
 const comparePassword = async (userPassword) => {
   const hash =
@@ -25,4 +26,12 @@ const comparePassword = async (userPassword) => {
   }
 };
 
-comparePassword(password);
+// comparePassword(password);
+
+const password = 'Fresh-Curler-Rumble5';
+const hash =
+  '$2a$10$8PZIlc6sTfz4KCV.YaHLauZifx.3gIrqFrOWEoHWdyNuiZxK6pxQm';
+
+bcrypt.compare(password, hash).then((result) => {
+  console.log(result);
+});

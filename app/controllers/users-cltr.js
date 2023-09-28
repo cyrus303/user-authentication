@@ -37,9 +37,19 @@ userCltr.login = async (request, response) => {
       const body = _.pick(request.body, ['email', 'password']);
       const user = await User.findOne({email: body.email});
       if (user) {
-        response.send(user);
+        const result = await bcrypt.compare(
+          body.password,
+          user.password
+        );
+        if (result) {
+          response.send('login successful');
+        } else {
+          response
+            .status(404)
+            .send('Username / Password is incorrect');
+        }
       } else {
-        response.status(404).send({error: 'User not found'});
+        response.status(404).send('Username / Password is incorrect');
       }
     }
   } catch (error) {}
