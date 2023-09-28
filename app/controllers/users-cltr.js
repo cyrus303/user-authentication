@@ -35,7 +35,12 @@ userCltr.login = async (request, response) => {
       response.status(400).send({errors: errors.array()});
     } else {
       const body = _.pick(request.body, ['email', 'password']);
-      response.send(body);
+      const user = await User.findOne({email: body.email});
+      if (user) {
+        response.send(user);
+      } else {
+        response.status(404).send({error: 'email not found'});
+      }
     }
   } catch (error) {}
 };
