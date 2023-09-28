@@ -39,7 +39,7 @@ userCltr.login = async (request, response) => {
       if (user) {
         response.send(user);
       } else {
-        response.status(404).send({error: 'email not found'});
+        response.status(404).send({error: 'User not found'});
       }
     }
   } catch (error) {}
