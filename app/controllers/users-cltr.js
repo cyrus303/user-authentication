@@ -3,7 +3,6 @@ const {validationResult} = require('express-validator');
 
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
-const jwt = require('jsonwebtoken');
 
 const userCltr = {};
 
@@ -62,15 +61,13 @@ userCltr.login = async (request, response) => {
   } catch (error) {}
 };
 
-userCltr.account = (request, response) => {
-  const {authorization: token} = request.headers;
-  jwt.verify(token, 'dct@123', async (error, decoded) => {
-    if (error) {
-      response.send({error});
-    }
-    const user = await User.findOne({_id: decoded.id});
+userCltr.account = async (request, response) => {
+  try {
+    const user = await User.findById(request.userId);
     response.send(user);
-  });
+  } catch (error) {
+    response.send(error);
+  }
 };
 
 module.exports = userCltr;

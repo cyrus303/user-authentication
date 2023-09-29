@@ -4,6 +4,7 @@ const userCltr = require('../app/controllers/users-cltr');
 const greetCltr = require('../app/controllers/greet-cltr');
 
 const {checkSchema} = require('express-validator');
+const authenticateUser = require('../app/middlewares/authenticateUser');
 
 const {
   userRegistrationSchema,
@@ -22,7 +23,7 @@ router.post(
   userCltr.login
 );
 
-router.get('/users/account', userCltr.account);
+router.get('/users/account', authenticateUser, userCltr.account);
 
 router.get('/greet/welcome', greetCltr.welcome);
 router.get('/greet/goodbye', greetCltr.goodbye);
