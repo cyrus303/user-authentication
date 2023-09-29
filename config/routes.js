@@ -22,6 +22,8 @@ router.post(
   userCltr.login
 );
 
+router.get('/users/account', userCltr.account);
+
 router.get('/greet/welcome', greetCltr.welcome);
 router.get('/greet/goodbye', greetCltr.goodbye);
 
