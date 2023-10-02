@@ -1,6 +1,6 @@
 const noteCreateSchema = {
   title: {
-    notEmpty: {errorMessage: 'Email is required'},
+    notEmpty: {errorMessage: 'Title is required'},
   },
 };
 

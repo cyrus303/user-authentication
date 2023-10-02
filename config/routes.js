@@ -35,6 +35,8 @@ router.post(
   notesCltr.create
 );
 
+router.post('/notes/list', authenticateUser, notesCltr.list);
+
 router.get('/greet/welcome', greetCltr.welcome);
 router.get('/greet/goodbye', greetCltr.goodbye);
 

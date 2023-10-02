@@ -3,20 +3,30 @@ const {validationResult} = require('express-validator');
 
 const notesCltr = {};
 
-notesCltr.create = (request, response) => {
+notesCltr.create = async (request, response) => {
   try {
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
       response.send({errors: errors.array()});
     } else {
       const body = request.body;
-      response.send(body);
+      body.userId = request.userId;
+      const note = await NoteModel.create(body);
+      response.send(note);
     }
   } catch (error) {
     response.status(400).send(error);
   }
 };
 
-notesCltr.list = (request, response) => {};
+notesCltr.list = async (request, response) => {
+  try {
+    console.log(request.userId);
+    const notes = await NoteModel.find({userId: request.userId});
+    response.send(notes);
+  } catch (error) {
+    response.send(error);
+  }
+};
 
 module.exports = notesCltr;
