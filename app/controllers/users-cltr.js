@@ -64,7 +64,8 @@ userCltr.login = async (request, response) => {
 userCltr.account = async (request, response) => {
   try {
     const user = await User.findById(request.userId);
-    response.send(user);
+    const resBody = _.pick(user, ['_id', 'username', 'email']);
+    response.send(resBody);
   } catch (error) {
     response.send(error);
   }

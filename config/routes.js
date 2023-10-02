@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userCltr = require('../app/controllers/users-cltr');
 const greetCltr = require('../app/controllers/greet-cltr');
+const notesCltr = require('../app/controllers/notes-cltr');
 
 const {checkSchema} = require('express-validator');
 const authenticateUser = require('../app/middlewares/authenticateUser');
@@ -24,6 +25,8 @@ router.post(
 );
 
 router.get('/users/account', authenticateUser, userCltr.account);
+
+router.post('/notes/create', notesCltr.create);
 
 router.get('/greet/welcome', greetCltr.welcome);
 router.get('/greet/goodbye', greetCltr.goodbye);
