@@ -1,5 +1,6 @@
 const User = require('../models/user-model');
 const {validationResult} = require('express-validator');
+const jwt = require('jsonwebtoken');
 
 const _ = require('lodash');
 const bcrypt = require('bcryptjs');
@@ -29,6 +30,7 @@ userCltr.register = async (request, response) => {
 };
 
 userCltr.login = async (request, response) => {
+  console.log('route hit');
   try {
     const errors = validationResult(request);
     if (!errors.isEmpty()) {
@@ -36,6 +38,7 @@ userCltr.login = async (request, response) => {
     } else {
       const body = _.pick(request.body, ['email', 'password']);
       const user = await User.findOne({email: body.email});
+      console.log(user);
       if (user) {
         const result = await bcrypt.compare(
           body.password,

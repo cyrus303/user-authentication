@@ -1,10 +1,7 @@
-
 const noteCreateSchema = {
-  title: notEmpty: {
-    errorMessage: 'Email is required',
+  title: {
+    notEmpty: {errorMessage: 'Email is required'},
   },
-
 };
 
-
-module.exports = noteCreateSchema
+module.exports = noteCreateSchema;

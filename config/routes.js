@@ -12,6 +12,8 @@ const {
   userLoginSchema,
 } = require('../app/helpers/userValidationSchema');
 
+const noteCreateSchema = require('../app/helpers/noteValidationSchema');
+
 router.post(
   '/users/register',
   checkSchema(userRegistrationSchema),
@@ -26,7 +28,12 @@ router.post(
 
 router.get('/users/account', authenticateUser, userCltr.account);
 
-router.post('/notes/create', notesCltr.create);
+router.post(
+  '/notes/create',
+  checkSchema(noteCreateSchema),
+  authenticateUser,
+  notesCltr.create
+);
 
 router.get('/greet/welcome', greetCltr.welcome);
 router.get('/greet/goodbye', greetCltr.goodbye);
