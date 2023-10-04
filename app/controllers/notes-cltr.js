@@ -21,7 +21,6 @@ notesCltr.create = async (request, response) => {
 
 notesCltr.list = async (request, response) => {
   try {
-    console.log(request.userId);
     const notes = await NoteModel.find({userId: request.userId});
     response.send(notes);
   } catch (error) {
