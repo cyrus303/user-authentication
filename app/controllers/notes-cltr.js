@@ -28,4 +28,61 @@ notesCltr.list = async (request, response) => {
   }
 };
 
+notesCltr.show = async (request, response) => {
+  const id = request.params.id;
+  try {
+    const note = await NoteModel.findOne({
+      _id: id,
+      userId: request.userId,
+    });
+    if (!note) {
+      response.status(404).send({});
+    } else {
+      response.send(note);
+    }
+  } catch (error) {
+    response.send(error);
+  }
+};
+
+notesCltr.update = async (request, response) => {
+  const id = request.params.id;
+  const body = request.body;
+  try {
+    const note = await NoteModel.findOneAndUpdate(
+      {
+        _id: id,
+        userId: request.userId,
+      },
+      body,
+      {new: true}
+    );
+
+    if (!note) {
+      response.status(404).send({});
+    } else {
+      response.send(note);
+    }
+  } catch (error) {
+    response.send(error);
+  }
+};
+
+notesCltr.destory = async (request, response) => {
+  const id = request.params.id;
+  try {
+    const note = await NoteModel.findOneAndDelete({
+      _id: id,
+      userId: request.userId,
+    });
+    if (!note) {
+      response.status(404).send({});
+    } else {
+      response.send(note);
+    }
+  } catch (error) {
+    response.send(error);
+  }
+};
+
 module.exports = notesCltr;

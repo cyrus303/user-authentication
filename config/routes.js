@@ -36,6 +36,14 @@ router.post(
 );
 
 router.get('/notes/list', authenticateUser, notesCltr.list);
+router.get('/notes/:id', authenticateUser, notesCltr.show);
+router.put(
+  '/notes/:id',
+  authenticateUser,
+  checkSchema(userLoginSchema),
+  notesCltr.update
+);
+router.delete('/notes/:id', authenticateUser, notesCltr.destory);
 
 router.get('/greet/welcome', greetCltr.welcome);
 router.get('/greet/goodbye', greetCltr.goodbye);
